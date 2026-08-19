@@ -1,3 +1,12 @@
+> **⚠️ Fork Notice**
+>
+> This is a fork of OpenCut (Legacy) from [OpenCut-app/opencut-classic](https://github.com/OpenCut-app/opencut-classic).
+>
+> - **Working as of**: August 19, 2026
+> - **Fork reason**: The original repository's Docker builds were failing due to TypeScript errors from missing/incorrect exports (e.g., `isShortcutKey`, `isActionWithOptionalArgs`, `IndexedDBAdapter` constructor signature changes). This fork includes fixes for those issues, making the project buildable and runnable via Docker Compose.
+>
+> The original codebase was archived and no longer maintained. The official rewrite is at [opencut-app/opencut](https://github.com/opencut-app/opencut).
+
 # OpenCut (Legacy)
 
 This is the original OpenCut codebase. It's archived and no longer maintained.

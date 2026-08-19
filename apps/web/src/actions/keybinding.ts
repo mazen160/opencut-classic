@@ -32,6 +32,33 @@ export function isKey(value: string): value is Key {
 	return KEY_SET.has(value);
 }
 
+/**
+ * Type guard that checks whether a string is a valid {@link ShortcutKey}.
+ * It validates both single-character shortcuts (e.g. "a") and modifier‑based
+ * shortcuts (e.g. "ctrl+z").
+ */
+export function isShortcutKey(value: string): value is ShortcutKey {
+	// Split on the first '+' to separate possible modifiers from the base key.
+	const parts = value.split("+");
+	if (parts.length === 1) {
+		// No modifiers – must be a plain key.
+		return isKey(parts[0]);
+	}
+	// With modifiers the last part must be a key and the preceding part(s)
+	// must form a valid ModifierKeys string.
+	const keyPart = parts.pop()!;
+	const modifierPart = parts.join("+");
+	return isKey(keyPart) && (
+		modifierPart === "ctrl" ||
+		modifierPart === "alt" ||
+		modifierPart === "shift" ||
+		modifierPart === "ctrl+shift" ||
+		modifierPart === "alt+shift" ||
+		modifierPart === "ctrl+alt" ||
+		modifierPart === "ctrl+alt+shift"
+	);
+}
+
 export type ModifierBasedShortcutKey = `${ModifierKeys}+${Key}`;
 // Singular keybindings (these will be disabled when an input-ish area has been focused)
 export type SingleCharacterShortcutKey = `${Key}`;
